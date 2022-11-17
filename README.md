@@ -62,14 +62,21 @@ query: commonInfluencers 14838508 98032178
 <result>
 	... // (list of common influencers, one per row)
 </result>
+<<<<<<< HEAD
 ```
 
 We can similarly have a query `numRetweets 14838508 98032178 ?`, which asks for the number of retweets before a tweet by userid:14838508 reaches user:98032178. The corresponding output should be as follows:
 ```
+=======
+
+We can similarly have a query numRetweets 14838508 98032178 ?, which asks for the number of retweets before a tweet by userid:14838508 reaches user:98032178. The corresponding output should be as follows:
+
+>>>>>>> 06468597383a098f3e2c81b2156801ab5eaf531f
 query: numRetweets 14838508 98032178
 <result>
 0 // (or appropriate number)
 </result>
+<<<<<<< HEAD
 ```
 
 If the input query file has multiple queries then the output file should have the results to each of those queries, in the same order as in the input file. 
@@ -106,3 +113,40 @@ We will grade your work _approximately_ as follows:
 ### Submission instructions
 
 + Since you will be working in groups, only one submission per group is expected.
+=======
+
+If the input query file has multiple queries then the output file should have the results to each of those queries, in the same order as in the input file.
+
+    Duplicate queries should be ignored.
+    All queries end with ?; lines in the query input file that do not end with a ? can also be ignored.
+
+Testing Your Code
+
+Use JUnit to test the correctness of your implementation. Write tests that check the correctness of normal cases as well as edge cases of the Graph ADT and the algorithms.
+Evaluation
+
+To earn full credit you must:
+
+    Properly encapsulate your implementation. Use the most restrictive access level that makes sense for each of your fields and methods (i.e., use private unless you have a good reason not to). Instead of manipulating class fields directly, make them private and implement getter and setter methods to manipulate them from outside of the class.
+    Not edit any files in the src.staff package or any of the method declarations we’ve initially provided for you.
+    Make sure your code is readable. Use proper indentation and whitespace, abide by standard Java naming conventions, and add additional comments as necessary to document your code.
+    Follow the Java code conventions, especially for naming and commenting.
+
+Additional hints
+
+    You may create helper classes and helper methods to help you with the assignment, as long as your code is compatible with the provided interfaces.
+    The tasks may be underspecified. Use your judgment. Write specifications. You can ask reasonable questions on Piazza.
+    As long as your code runs in a reasonable amount of time, and returns the correct values, you do not need to worry about the complexity of your algorithms.
+
+Grading guidelines
+
+We will grade your work approximately as follows:
+Correct graph implementations	30%
+Correct algorithm implementations	30%
+Correct Twitter data analysis	10%
+Tests	15%
+Good style and program design	15%
+Submission instructions
+
+    Since you will be working in groups, only one submission per group is expected.
+>>>>>>> 06468597383a098f3e2c81b2156801ab5eaf531f
