@@ -4,12 +4,14 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Stack;
 
-public class AdjacencyListGraph implements Graph { 
-  
-  // TO JERICHO :must implement getUpStream and getDownStream
+public class AdjacencyListGraph implements Graph {
 
- // TODO: Implement this class
+	// TO JERICHO :must implement getUpStream and getDownStream
+
+	// TODO: Implement this class
 	/**
 	 * Rep invariant: If a is a vertex of graph and there is an edge from a to b,
 	 * then b is a vertex of the graph: If a vertex v is an element of any of the
@@ -58,6 +60,28 @@ public class AdjacencyListGraph implements Graph {
 		return result;
 	}
 
-  
+	public List<Vertex> getDownstreamNeighbors(Vertex v) {
+		List<Vertex> result = new LinkedList<Vertex>();
+		Queue<Vertex> myQueue = new LinkedList<Vertex>();
+
+		for (Vertex x : adjacencyList.get(v)) {
+			myQueue.add(x);
+		}
+		result.addAll(myQueue);
+		return result;
+	}
+
+	public List<Vertex> getUpstreamNeighbors(Vertex v) {
+		LinkedList<Vertex> result = new LinkedList<Vertex>();
+		Stack<Vertex> myStack = new Stack<Vertex>();
+
+		for (Vertex y : adjacencyList.get(v)) {
+			myStack.add(y);
+		}
+
+		result.add(myStack.firstElement());
+
+		return result;
+	}
 
 }
