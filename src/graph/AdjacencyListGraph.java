@@ -4,9 +4,11 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Stack;
 
 public class AdjacencyListGraph implements Graph { 
-  
+
   // TO JERICHO :must implement getUpStream and getDownStream
 
  // TODO: Implement this class
@@ -55,6 +57,31 @@ public class AdjacencyListGraph implements Graph {
 		for (Vertex v : adjacencyList.keySet()) {
 			result.add(v);
 		}
+		return result;
+	}
+
+  public List<Vertex> getDownstreamNeighbors(Vertex v) {
+		List<Vertex> result = new LinkedList<Vertex>();
+		Queue<Vertex> myQueue = new LinkedList<Vertex>();
+
+		for (Vertex x : adjacencyList.get(v)) {
+			myQueue.add(x);
+		}
+		result.addAll(myQueue);
+		return result;
+	}
+
+	public List<Vertex> getUpstreamNeighbors(Vertex v) {
+		LinkedList<Vertex> result = new LinkedList<Vertex>();
+		Stack<Vertex> myStack = new Stack<Vertex>();
+
+		for (Vertex y : adjacencyList.get(v)) {
+			myStack.add(y);
+		}
+		while(!myStack.isEmpty()) {
+			result.add(myStack.pop());
+		}
+
 		return result;
 	}
 
