@@ -73,13 +73,13 @@ public class AdjacencyListGraph implements Graph {
 
 	public List<Vertex> getUpstreamNeighbors(Vertex v) {
 		LinkedList<Vertex> result = new LinkedList<Vertex>();
-		Stack<Vertex> myStack = new Stack<Vertex>();
+		Queue<Vertex> myQueue = new LinkedList<Vertex>();
 
 		for (Vertex y : adjacencyList.get(v)) {
-			myStack.add(y);
+			myQueue.add(y);
 		}
 
-		result.add(myStack.firstElement());
+		result.add(myQueue.peek());
 
 		return result;
 	}
