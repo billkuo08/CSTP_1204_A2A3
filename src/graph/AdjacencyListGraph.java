@@ -7,11 +7,11 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
-public class AdjacencyListGraph implements Graph { 
+public class AdjacencyListGraph implements Graph {
 
-  // TO JERICHO :must implement getUpStream and getDownStream
+	// TO JERICHO :must implement getUpStream and getDownStream
 
- // TODO: Implement this class
+	// TODO: Implement this class
 	/**
 	 * Rep invariant: If a is a vertex of graph and there is an edge from a to b,
 	 * then b is a vertex of the graph: If a vertex v is an element of any of the
@@ -60,7 +60,7 @@ public class AdjacencyListGraph implements Graph {
 		return result;
 	}
 
-  public List<Vertex> getDownstreamNeighbors(Vertex v) {
+	public List<Vertex> getDownstreamNeighbors(Vertex v) {
 		List<Vertex> result = new LinkedList<Vertex>();
 		Queue<Vertex> myQueue = new LinkedList<Vertex>();
 
@@ -78,13 +78,10 @@ public class AdjacencyListGraph implements Graph {
 		for (Vertex y : adjacencyList.get(v)) {
 			myStack.add(y);
 		}
-		while(!myStack.isEmpty()) {
-			result.add(myStack.pop());
-		}
+
+		result.add(myStack.firstElement());
 
 		return result;
 	}
-
-  
 
 }
