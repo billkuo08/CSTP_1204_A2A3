@@ -24,6 +24,7 @@ public class AdjacencyMatrixGraph implements Graph {
     for (int i = 0; i < vertexList.size(); i++) {
       column.add(false);
     }
+    // * add the new column to the connection matrix
     connectionMatrix.add(column);
     System.out.println(vertexList);
 
@@ -63,6 +64,7 @@ public class AdjacencyMatrixGraph implements Graph {
     LinkedList<Vertex> result = new LinkedList<Vertex>();
     List<Boolean> column = connectionMatrix.get(vertexList.indexOf(v));
 
+    // * iterate through the column and add the vertices that are connected to v
     for (int i = 0; i < column.size(); i++) {
       if (column.get(i)) {
         result.add(vertexList.get(i));
@@ -75,6 +77,7 @@ public class AdjacencyMatrixGraph implements Graph {
   public List<Vertex> getUpstreamNeighbors(Vertex v) {
     List<Vertex> result = new ArrayList<Vertex>();
 
+    // * go through each column
     for (int i = 0; i < connectionMatrix.size(); i++) {
       List<Boolean> column = connectionMatrix.get(i);
       if (column.get(vertexList.indexOf(v))) {
@@ -82,6 +85,7 @@ public class AdjacencyMatrixGraph implements Graph {
       }
     }
 
+    // * defensive copying to not give back the actual list of vertices
     return result;
   }
 
