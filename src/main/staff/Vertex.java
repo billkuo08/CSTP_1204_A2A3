@@ -1,4 +1,5 @@
-package staff;
+package main.staff;
+
 
 
 /**
