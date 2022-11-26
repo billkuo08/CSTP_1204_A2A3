@@ -9,13 +9,13 @@ import java.util.Stack;
 
 public class AdjacencyListGraph implements Graph {
 
-	// TO JERICHO :must implement getUpStream and getDownStream
+	//! TO JERICHO :must implement getUpStream and getDownStream
 
-	// TODO: Implement this class
+	// todo: Implement this class
 	/**
 	 * Rep invariant: If a is a vertex of graph and there is an edge from a to b,
 	 * then b is a vertex of the graph: If a vertex v is an element of any of the
-	 * sets of the value set of adjacenyList, v is part of the key set of
+	 * sets of the value set of adjacencyList, v is part of the key set of
 	 * adjacencyList. There is no edge that goes from a vertex to itself: A vertex v
 	 * cannot be contained by the set s, where s is the value of the entry whose key
 	 * is v
