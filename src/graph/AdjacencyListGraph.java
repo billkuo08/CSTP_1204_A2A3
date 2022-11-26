@@ -75,11 +75,15 @@ public class AdjacencyListGraph implements Graph {
 		LinkedList<Vertex> result = new LinkedList<Vertex>();
 		Queue<Vertex> myQueue = new LinkedList<Vertex>();
 
-		for (Vertex y : adjacencyList.get(v)) {
-			myQueue.add(y);
+		for (Vertex x : adjacencyList.keySet()) {
+			for (Vertex y : adjacencyList.get(x)) {
+				if (y.equals(v)) {
+					myQueue.add(x);
+				}
+			}
 		}
 
-		result.add(myQueue.peek());
+		result.addAll(myQueue);
 
 		return result;
 	}
