@@ -72,42 +72,47 @@ public class Algorithms {
 		return result;
 	}
 
+	// * Returns the shortest path between two vertices in a graph
 	public static int shortestDistance(Graph graph, Vertex a, Vertex b) throws NameNotFoundException {
 		// Do a BFS starting at vertex a and recording at what depth is each vertex
 		Map<Vertex, Integer> distances = Algorithms.bfsForVertex(graph, a);
 		if (!distances.containsKey(b)) {
-			// Condition is only true if b was not visited by the BFS of a
+			// If b is not in the map, then there is no path between a and b
 			throw new NameNotFoundException();
 		}
-
+		// Return the depth of b in the BFS
 		return distances.get(b);
 	}
 
 	private static List<Vertex> commonVertices(List<Vertex> list1, List<Vertex> list2) {
-		// loop through one list and check it each element of this list is contained in
-		// the other one
+		// * Find the common vertices between two lists
 		List<Vertex> result = new ArrayList<Vertex>();
+		// ! Add all the vertices in list1 to a set
 		for (int i = 0; i < list1.size(); i++) {
+			// ! If a vertex in list2 is in the set, add it to the result
 			Vertex v = list1.get(i);
 			if (list2.contains(v)) {
 				result.add(v);
 			}
 		}
+		// ! Remove duplicates
 		return result;
 	}
 
 	public static List<Vertex> commonUpstreamVertices(Graph graph, Vertex a, Vertex b) {
-		// todo: Implement this method
+		// * Do a DFS starting at a and b and get the list of vertices visited
 		List<Vertex> upstreamVerticesA = graph.getUpstreamNeighbors(a);
+		// ! Add a to the list of upstream vertices
 		List<Vertex> upstreamVerticesB = graph.getUpstreamNeighbors(b);
-		return commonVertices(upstreamVerticesA, upstreamVerticesB); // this should be changed
+		// * Get the common vertices between the upstream neighbors of a and b
+		return commonVertices(upstreamVerticesA, upstreamVerticesB);
 	}
 
-	public static List<Vertex> commonDownstreamVertices(Graph graph, Vertex a, Vertex b)
-	{
-		// todo: Implement this method
+	public static List<Vertex> commonDownstreamVertices(Graph graph, Vertex a, Vertex b) {
+		// * Do a DFS starting at a and b and get the list of vertices visited
 		List<Vertex> downstreamVerticesA = graph.getDownstreamNeighbors(a);
 		List<Vertex> downstreamVerticesB = graph.getDownstreamNeighbors(b);
+		// * Get the common vertices between the downstream neighbors of a and b
 		return commonVertices(downstreamVerticesA, downstreamVerticesB);
 	}
 }
