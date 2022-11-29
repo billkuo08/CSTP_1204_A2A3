@@ -102,4 +102,12 @@ public class Algorithms {
 		List<Vertex> upstreamVerticesB = graph.getUpstreamNeighbors(b);
 		return commonVertices(upstreamVerticesA, upstreamVerticesB); // this should be changed
 	}
+
+	public static List<Vertex> commonDownstreamVertices(Graph graph, Vertex a, Vertex b)
+	{
+		// todo: Implement this method
+		List<Vertex> downstreamVerticesA = graph.getDownstreamNeighbors(a);
+		List<Vertex> downstreamVerticesB = graph.getDownstreamNeighbors(b);
+		return commonVertices(downstreamVerticesA, downstreamVerticesB);
+	}
 }
