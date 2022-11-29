@@ -95,4 +95,11 @@ public class Algorithms {
 		}
 		return result;
 	}
+
+	public static List<Vertex> commonUpstreamVertices(Graph graph, Vertex a, Vertex b) {
+		// todo: Implement this method
+		List<Vertex> upstreamVerticesA = graph.getUpstreamNeighbors(a);
+		List<Vertex> upstreamVerticesB = graph.getUpstreamNeighbors(b);
+		return commonVertices(upstreamVerticesA, upstreamVerticesB); // this should be changed
+	}
 }
