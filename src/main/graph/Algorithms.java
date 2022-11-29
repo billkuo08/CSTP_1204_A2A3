@@ -4,7 +4,6 @@ import main.staff.*;
 import java.util.*;
 import javax.naming.NameNotFoundException;
 
-
 public class Algorithms {
 
 	private static List<Vertex> dfsForVertex(Graph graph, Vertex start) {
@@ -24,7 +23,7 @@ public class Algorithms {
 		}
 		return result;
 	}
-	
+
 	public static Set<List<Vertex>> depthFirstSearch(Graph graph) {
 		Set<List<Vertex>> result = new LinkedHashSet<List<Vertex>>();
 		for (Vertex vertex : graph.getVertices()) {
@@ -33,7 +32,6 @@ public class Algorithms {
 		}
 		return result;
 	}
-
 
 	private static Map<Vertex, Integer> bfsForVertex(Graph graph, Vertex start) {
 		Map<Vertex, Integer> result = new LinkedHashMap<Vertex, Integer>();
@@ -57,9 +55,8 @@ public class Algorithms {
 		return result;
 	}
 
-
 	public static Set<List<Vertex>> breadthFirstSearch(Graph graph) {
-		// TODO: Implement this method
+		// todo: Implement this method
 		Set<List<Vertex>> result = new LinkedHashSet<List<Vertex>>();
 		for (Vertex vertex : graph.getVertices()) {
 			// Get a map with each vertex visited and the depth of it in the bfs starting
@@ -73,21 +70,29 @@ public class Algorithms {
 			result.add(visitedVertices);
 		}
 		return result;
-	}	
-
+	}
 
 	public static int shortestDistance(Graph graph, Vertex a, Vertex b) throws NameNotFoundException {
 		// Do a BFS starting at vertex a and recording at what depth is each vertex
 		Map<Vertex, Integer> distances = Algorithms.bfsForVertex(graph, a);
 		if (!distances.containsKey(b)) {
 			// Condition is only true if b was not visited by the BFS of a
-			throw new NameNotFoundException ();
+			throw new NameNotFoundException();
 		}
 
 		return distances.get(b);
 	}
 
-	
-	
-
+	private static List<Vertex> commonVertices(List<Vertex> list1, List<Vertex> list2) {
+		// loop through one list and check it each element of this list is contained in
+		// the other one
+		List<Vertex> result = new ArrayList<Vertex>();
+		for (int i = 0; i < list1.size(); i++) {
+			Vertex v = list1.get(i);
+			if (list2.contains(v)) {
+				result.add(v);
+			}
+		}
+		return result;
+	}
 }
