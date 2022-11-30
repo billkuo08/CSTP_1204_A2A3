@@ -7,17 +7,17 @@ import javax.naming.NameNotFoundException;
 public class Algorithms {
 
 	private static List<Vertex> dfsForVertex(Graph graph, Vertex start) {
-		Stack<Vertex> queue = new Stack<Vertex>();
+		Stack<Vertex> myStack = new Stack<Vertex>();
 		List<Vertex> result = new ArrayList<Vertex>();
-		queue.push(start);
-		while (!queue.isEmpty()) {
-			Vertex up = queue.pop();
+		myStack.push(start);
+		while (!myStack.isEmpty()) {
+			Vertex up = myStack.pop();
 			// Take the next element and add its downstream neighbors to the stack so that
 			// they are the next ones on which to carry the search
 			if (!result.contains(up)) {
 				result.add(up);
 				for (Vertex down : graph.getDownstreamNeighbors(up)) {
-					queue.push(down);
+					myStack.push(down);
 				}
 			}
 		}
@@ -36,18 +36,18 @@ public class Algorithms {
 	private static Map<Vertex, Integer> bfsForVertex(Graph graph, Vertex start) {
 		Map<Vertex, Integer> result = new LinkedHashMap<Vertex, Integer>();
 		result.put(start, 0);
-		Queue<Vertex> queue = new LinkedList<Vertex>();
-		queue.add(start);
-		while (!queue.isEmpty()) {
+		Queue<Vertex> MyQueue = new LinkedList<Vertex>();
+		MyQueue.add(start);
+		while (!MyQueue.isEmpty()) {
 			// Take the first element in the queue
 			// Add all of its downstream neighbors to the queue to carry the BFS on them
 			// after the vertices in the current level are done
-			Vertex up = queue.remove();
+			Vertex up = MyQueue.remove();
 			// Add all of its downstream neighbors to the map with a depth one bigger than
 			// the depth of up
 			for (Vertex down : graph.getDownstreamNeighbors(up)) {
 				if (!result.containsKey(down)) {
-					queue.add(down);
+					MyQueue.add(down);
 					result.put(down, result.get(up) + 1);
 				}
 			}
@@ -56,7 +56,6 @@ public class Algorithms {
 	}
 
 	public static Set<List<Vertex>> breadthFirstSearch(Graph graph) {
-		// todo: Implement this method
 		Set<List<Vertex>> result = new LinkedHashSet<List<Vertex>>();
 		for (Vertex vertex : graph.getVertices()) {
 			// Get a map with each vertex visited and the depth of it in the bfs starting
