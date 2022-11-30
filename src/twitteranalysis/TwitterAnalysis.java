@@ -23,25 +23,27 @@ public class TwitterAnalysis {
         constructGraph(twitterGraph, fileLocation);
 
     }
-
+    // This method reads the file and construct a graph based on it 
     private static void constructGraph(Graph graph, String fileName) throws FileNotFoundException{
 
         File myFile = new File(fileName);
 
+        //Use scanner to tokenize the data
         try (Scanner data = new Scanner(myFile)){
 
             Queue<Vertex> myQue = new LinkedList<>();
 
             while (data.hasNext()){
                 String str = data.next();
-
+                
+                //Assuming no error in the source file, we ignore every "->"
                 if(!str.equals("->")){
                     Vertex thisVertex = new Vertex(str);
                     graph.addVertex(thisVertex);
                     myQue.add(thisVertex);
                 }
 
-
+                //Since we ignored "->", for every two vertices, we have an edge
                 if(myQue.size() == 2){
                     Vertex a = myQue.remove();
                     Vertex b = myQue.remove();
@@ -50,8 +52,10 @@ public class TwitterAnalysis {
                 }
             
             }
-            System.out.println(graph);
         }
         
     }
+
+   
+
 }
