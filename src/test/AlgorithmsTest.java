@@ -17,7 +17,7 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class AlgorithmsTest {
 
-    Graph aGraph;
+    Graph graph;
     static Vertex a;
     static Vertex b;
     static Vertex c;
@@ -38,12 +38,12 @@ public class AlgorithmsTest {
 
     
     public AlgorithmsTest(Graph anInterface) {
-        this.aGraph = anInterface;
+        this.graph = anInterface;
     }
 
     @Before
     public void setup() throws InstantiationException, IllegalAccessException {
-        this.aGraph = aGraph.getClass().newInstance();
+        this.graph = graph.getClass().newInstance();
         
         a = new Vertex("A");
         b = new Vertex("B");
@@ -58,37 +58,37 @@ public class AlgorithmsTest {
         k = new Vertex("K");
         l = new Vertex("L");
 
-        aGraph.addVertex(a);
-        aGraph.addVertex(b);
-        aGraph.addVertex(c);
+        graph.addVertex(a);
+        graph.addVertex(b);
+        graph.addVertex(c);
 
-        aGraph.addVertex(d);
-        aGraph.addVertex(e);
-        aGraph.addVertex(f);
+        graph.addVertex(d);
+        graph.addVertex(e);
+        graph.addVertex(f);
 
-        aGraph.addVertex(g);
-        aGraph.addVertex(h);
-        aGraph.addVertex(i);
+        graph.addVertex(g);
+        graph.addVertex(h);
+        graph.addVertex(i);
 
-        aGraph.addVertex(j);
-        aGraph.addVertex(k);
-        aGraph.addVertex(l);
+        graph.addVertex(j);
+        graph.addVertex(k);
+        graph.addVertex(l);
 
-        aGraph.addEdge(a, b);
-        aGraph.addEdge(b, a);
-        aGraph.addEdge(b, c);        
-        aGraph.addEdge(b, d);
-        aGraph.addEdge(c, a);
-        aGraph.addEdge(d, c);
-        aGraph.addEdge(b, e);
-        aGraph.addEdge(b, f);
-        aGraph.addEdge(e, b);
-        aGraph.addEdge(f, b);
-        aGraph.addEdge(d, g);
-        aGraph.addEdge(g, h);
-        aGraph.addEdge(g, i);
-        aGraph.addEdge(i, j);
-        aGraph.addEdge(i, k);
+        graph.addEdge(a, b);
+        graph.addEdge(b, a);
+        graph.addEdge(b, c);        
+        graph.addEdge(b, d);
+        graph.addEdge(c, a);
+        graph.addEdge(d, c);
+        graph.addEdge(b, e);
+        graph.addEdge(b, f);
+        graph.addEdge(e, b);
+        graph.addEdge(f, b);
+        graph.addEdge(d, g);
+        graph.addEdge(g, h);
+        graph.addEdge(g, i);
+        graph.addEdge(i, j);
+        graph.addEdge(i, k);
 
         
     }
@@ -98,7 +98,7 @@ public class AlgorithmsTest {
         return Arrays.asList(new Object[] { new AdjacencyListGraph() }, new Object[] { new AdjacencyMatrixGraph() });
     }
 
-    private boolean checkIfThereIsADuplicate(List<Vertex> aList) {
+    private boolean checkDuplicate(List<Vertex> aList) {
         Set<Vertex> set1 = new HashSet<Vertex>();
         for (Vertex aVerterx : aList) {
             if (!set1.add(aVerterx)) {
@@ -112,7 +112,7 @@ public class AlgorithmsTest {
     public void testdfs() {
                   
 
-        Set<List<Vertex>> setOfTraversalListsDFS = Algorithms.depthFirstSearch(aGraph);
+        Set<List<Vertex>> setOfTraversalListsDFS = Algorithms.depthFirstSearch(graph);
 
         assertEquals(GRAPH_SIZE, setOfTraversalListsDFS.size());//size check
 
@@ -124,7 +124,7 @@ public class AlgorithmsTest {
             if (startingVertex.equals(b)) {   
                 //check duplicates and size           
                 assertEquals(GRAPH_SIZE - 1, aList.size()); 
-                assertFalse(checkIfThereIsADuplicate(aList));
+                assertFalse(checkDuplicate(aList));
                 // Check that A is after C
                 assertEquals(1, Math.abs((aList.indexOf(c) - aList.indexOf(a))));
             }
@@ -133,7 +133,7 @@ public class AlgorithmsTest {
 
     @Test
     public void testbfs() throws Exception {
-        Set<List<Vertex>> setOfTraversalListsDFS = Algorithms.breadthFirstSearch(aGraph);
+        Set<List<Vertex>> setOfTraversalListsDFS = Algorithms.breadthFirstSearch(graph);
 
         assertEquals(GRAPH_SIZE, setOfTraversalListsDFS.size());//size check
 
@@ -145,7 +145,7 @@ public class AlgorithmsTest {
             if (startingVertex.equals(b)) {
                 //check duplicates and size
                 assertEquals(GRAPH_SIZE - 1, aList.size()); 
-                assertFalse(checkIfThereIsADuplicate(aList));
+                assertFalse(checkDuplicate(aList));
 
                 // Check that H and I are one distance apart
                 assertTrue((Math.abs(aList.indexOf(h) - aList.indexOf(i))) == 1);
@@ -156,19 +156,19 @@ public class AlgorithmsTest {
     @Test
     public void shortestDistanceTest() {
         try {
-            assertEquals(0, Algorithms.shortestDistance(aGraph, a, a));
-            assertEquals(2, Algorithms.shortestDistance(aGraph, a, f));
-            assertEquals(1, Algorithms.shortestDistance(aGraph, b, c));
-            assertEquals(3, Algorithms.shortestDistance(aGraph, d, b));
-            assertEquals(4, Algorithms.shortestDistance(aGraph, d, e));
-            assertEquals(5, Algorithms.shortestDistance(aGraph, f, k));
+            assertEquals(0, Algorithms.shortestDistance(graph, a, a));
+            assertEquals(2, Algorithms.shortestDistance(graph, a, f));
+            assertEquals(1, Algorithms.shortestDistance(graph, b, c));
+            assertEquals(3, Algorithms.shortestDistance(graph, d, b));
+            assertEquals(4, Algorithms.shortestDistance(graph, d, e));
+            assertEquals(5, Algorithms.shortestDistance(graph, f, k));
         } catch (Exception e) {
             fail(); // Should not throw this exception
         }
 
         // Test no path, Exception or return special value
         try {
-            assertTrue((Algorithms.shortestDistance(aGraph, j, k) < 0) || (Algorithms.shortestDistance(aGraph, j, k) >= GRAPH_SIZE));
+            assertTrue((Algorithms.shortestDistance(graph, j, k) < 0) || (Algorithms.shortestDistance(graph, j, k) >= GRAPH_SIZE));
         } catch (Exception e) {
             // Throw an exception if there is no path
         }
@@ -177,30 +177,30 @@ public class AlgorithmsTest {
     @Test
     public void commonDownstreamVerticesTest() {
         // Test Normal case
-        List<Vertex> intersectionList = Algorithms.commonDownstreamVertices(aGraph, a, e);
+        List<Vertex> intersectionList = Algorithms.commonDownstreamVertices(graph, a, e);
         assertEquals(new HashSet<Vertex>() {{add(b);}}, new HashSet<Vertex>(intersectionList));
         System.out.println(intersectionList);
 
         // Test No commonUpstreamVertices
-        assertEquals(0, Algorithms.commonDownstreamVertices(aGraph, l, a).size());
+        assertEquals(0, Algorithms.commonDownstreamVertices(graph, l, a).size());
         
          // Test Symmetry
-        assertEquals(Algorithms.commonDownstreamVertices(aGraph, a, e).size(), Algorithms.commonDownstreamVertices(aGraph, e, a).size());
+        assertEquals(Algorithms.commonDownstreamVertices(graph, a, e).size(), Algorithms.commonDownstreamVertices(graph, e, a).size());
     }
 
     @Test
     public void commonUpstreamVerticesTest() {
 
         // Test Normal case
-        List<Vertex> intersectionList = Algorithms.commonUpstreamVertices(aGraph, d, e);
+        List<Vertex> intersectionList = Algorithms.commonUpstreamVertices(graph, d, e);
 
         assertEquals(new HashSet<Vertex>() {{add(b);}}, new HashSet<Vertex>(intersectionList));      
         
         // Test No commonUpstreamVertices
-        assertEquals(0, Algorithms.commonUpstreamVertices(aGraph, l, a).size());                                                                      
+        assertEquals(0, Algorithms.commonUpstreamVertices(graph, l, a).size());                                                                      
 
         // Test Symmetry
-        assertEquals(Algorithms.commonUpstreamVertices(aGraph, d, e).size(), Algorithms.commonUpstreamVertices(aGraph, e, d).size());
+        assertEquals(Algorithms.commonUpstreamVertices(graph, d, e).size(), Algorithms.commonUpstreamVertices(graph, e, d).size());
     }
 
    
