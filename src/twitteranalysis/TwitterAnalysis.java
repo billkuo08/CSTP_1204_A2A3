@@ -75,7 +75,7 @@ public class TwitterAnalysis {
 
             }
         }
-
+        // ! Close the scanner
     }
 
     // reads the commandQuery file calls the appropriate method
@@ -137,7 +137,7 @@ public class TwitterAnalysis {
     // * */ This method writes the output to the output file
 
     private static void outputQueries(String result) {
-
+        // ! Use scanner to tokenize the data
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("datasets/output.txt"))) {
 
             bw.write(result);
@@ -146,7 +146,6 @@ public class TwitterAnalysis {
             // * */ Test that an exception should be thrown
             System.out.println("Error: " + e);
         }
-
     }
 
 }
