@@ -22,6 +22,7 @@ public class TwitterAnalysis {
     private static String queryResult = "";
 
     public static void main(String[] args) throws IOException, InvalidAlgorithmParameterException {
+        // todo Auto-generated method stub
 
         AdjacencyListGraph twitterGraph = new AdjacencyListGraph();
         // Set<String> outputSet = new HashSet<String>();
@@ -52,10 +53,12 @@ public class TwitterAnalysis {
             Queue<Vertex> myQue = new LinkedList<>();
 
             while (data.hasNext()) {
+                // ! Read the first line
                 String str = data.next();
 
                 // Assuming no error in the source file, we ignore every "->"
                 if (!str.equals("->")) {
+                    // ! Create a new vertex
                     Vertex thisVertex = new Vertex(str);
                     graph.addVertex(thisVertex);
                     myQue.add(thisVertex);
@@ -63,6 +66,7 @@ public class TwitterAnalysis {
 
                 // Since we ignored "->", for every two vertices, we have an edge
                 if (myQue.size() == 2) {
+                    // ! Create a new edge
                     Vertex a = myQue.remove();
                     Vertex b = myQue.remove();
 
@@ -77,6 +81,8 @@ public class TwitterAnalysis {
     // reads the commandQuery file calls the appropriate method
     private static void getQueries(Graph graph, String file2) throws InvalidAlgorithmParameterException {
 
+        // ! Use scanner to tokenize the data
+
         StringBuilder sb = new StringBuilder(queryResult);
 
         try {
@@ -87,6 +93,7 @@ public class TwitterAnalysis {
             LinkedHashSet<String> mySet = new LinkedHashSet<String>();
             line = brData.readLine();
 
+            // * */ Read the file line by line
             while ((line = brData.readLine()) != null) {
 
                 mySet.add(line);
