@@ -1,6 +1,5 @@
 package twitteranalysis;
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,7 +17,6 @@ import java.util.Scanner;
 import main.graph.*;
 import main.staff.*;
 
-
 public class TwitterAnalysis {
 
     private static String queryResult = "";
@@ -35,15 +33,13 @@ public class TwitterAnalysis {
 
         getQueries(twitterGraph, commandFile);
 
-        //outputSet.add(queryResult);
+        // outputSet.add(queryResult);
 
         // String finalResult = String.join("", outputSet);
 
         outputQueries(queryResult);
 
     }
-
-   
 
     // This method reads the file and construct a graph based on it
     private static void constructGraph(Graph graph, String file1) throws FileNotFoundException {
@@ -79,75 +75,71 @@ public class TwitterAnalysis {
     }
 
     // reads the commandQuery file calls the appropriate method
-    private static void getQueries(Graph graph, String file2) throws InvalidAlgorithmParameterException{
+    private static void getQueries(Graph graph, String file2) throws InvalidAlgorithmParameterException {
 
         StringBuilder sb = new StringBuilder(queryResult);
 
-        try{
+        try {
 
             BufferedReader brData = new BufferedReader(new FileReader(file2));
             String line;
             String[] commandArr;
             LinkedHashSet<String> mySet = new LinkedHashSet<String>();
             line = brData.readLine();
-           
-           
-            
-            while((line = brData.readLine()) != null){  
+
+            while ((line = brData.readLine()) != null) {
 
                 mySet.add(line);
-                
-                
-                
-                if(line.contains("?")){  
-                   commandArr = line.split(" ");
-                                        
-                                           
-                    if(Objects.equals(commandArr[0], "commonInfluencers") && commandArr.length == 4){
+
+                if (line.contains("?")) {
+                    commandArr = line.split(" ");
+
+                    if (Objects.equals(commandArr[0], "commonInfluencers") && commandArr.length == 4) {
                         Vertex u1 = new Vertex(commandArr[1]);
                         Vertex u2 = new Vertex(commandArr[2]);
 
-                        sb.append("query: ").append(commandArr[0]).append(" ").append(u1).append(" ").append(u2).append("\n");
+                        sb.append("query: ").append(commandArr[0]).append(" ").append(u1).append(" ").append(u2)
+                                .append("\n");
 
-                        for(Vertex users: Algorithms.commonDownstreamVertices(graph, u1, u2)){
+                        for (Vertex users : Algorithms.commonDownstreamVertices(graph, u1, u2)) {
                             sb.append(users).append("\n");
                         }
 
-                        } else if (Objects.equals(commandArr[0], "numRetweets") && commandArr.length == 4){
-                            Vertex u1 = new Vertex(commandArr[1]);
-                            Vertex u2 = new Vertex(commandArr[2]);
+                    } else if (Objects.equals(commandArr[0], "numRetweets") && commandArr.length == 4) {
+                        Vertex u1 = new Vertex(commandArr[1]);
+                        Vertex u2 = new Vertex(commandArr[2]);
 
-                            sb.append("query: ").append(commandArr[0]).append(" ").append(u1).append(" ").append(u2).append("\n");
+                        sb.append("query: ").append(commandArr[0]).append(" ").append(u1).append(" ").append(u2)
+                                .append("\n");
 
-                            sb.append(Algorithms.shortestDistance(graph, u1, u2)).append("\n");
+                        sb.append(Algorithms.shortestDistance(graph, u1, u2)).append("\n");
 
-                        }                 
-                } 
-            
-                 
+                    }
+                }
+
             }
-        
-            queryResult = sb.toString();                          
+
+            queryResult = sb.toString();
             brData.close();
 
         } catch (Exception e) {
             // Test that an exception should be thrown
-          }
-            
+        }
+
     }
-    
+    // * */ This method writes the output to the output file
 
+    private static void outputQueries(String result) {
 
-  
-   
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("datasets/output.txt"))) {
+
+            bw.write(result);
+
+        } catch (Exception e) {
+            // * */ Test that an exception should be thrown
+            System.out.println("Error: " + e);
+        }
+
+    }
+
 }
-
-    
-
-
-          
-     
-
-    
-
-
