@@ -135,6 +135,18 @@ public class TwitterAnalysis {
           }
             
     }
+    private static void outputQueries(String result) {
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("datasets/output.txt"))) {
+
+            bw.write(result);
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+
+    }
+
 
   
    
