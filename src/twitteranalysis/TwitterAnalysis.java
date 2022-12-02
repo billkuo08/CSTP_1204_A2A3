@@ -5,7 +5,12 @@ import main.graph.*;
 import main.staff.*;
 
 public class TwitterAnalysis {
-    public static void main(String[ ] args){
 
+    public void communInfluencers(Vertex a, Vertex b){
+        
+        
     }
+
+    public static void main(String[ ] args) {}
+
 }
