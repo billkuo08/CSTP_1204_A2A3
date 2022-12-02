@@ -22,10 +22,8 @@ public class TwitterAnalysis {
     private static String queryResult = "";
 
     public static void main(String[] args) throws IOException, InvalidAlgorithmParameterException {
-        // todo Auto-generated method stub
 
         AdjacencyListGraph twitterGraph = new AdjacencyListGraph();
-        // Set<String> outputSet = new HashSet<String>();
 
         String dataBase = "datasets/twitter.txt";
         String commandFile = "datasets/commandQuery.txt";
@@ -33,11 +31,7 @@ public class TwitterAnalysis {
         constructGraph(twitterGraph, dataBase);
 
         getQueries(twitterGraph, commandFile);
-
-        // outputSet.add(queryResult);
-
-        // String finalResult = String.join("", outputSet);
-
+    
         outputQueries(queryResult);
 
     }
@@ -75,13 +69,11 @@ public class TwitterAnalysis {
 
             }
         }
-        // ! Close the scanner
     }
 
-    // reads the commandQuery file calls the appropriate method
+    // reads the commandQuery file calls the according method
     private static void getQueries(Graph graph, String file2) throws InvalidAlgorithmParameterException {
 
-        // ! Use scanner to tokenize the data
 
         StringBuilder sb = new StringBuilder(queryResult);
 
@@ -134,10 +126,9 @@ public class TwitterAnalysis {
         }
 
     }
-    // * */ This method writes the output to the output file
+    // * */ This method writes the output to output.txt 
 
     private static void outputQueries(String result) {
-        // ! Use scanner to tokenize the data
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("datasets/output.txt"))) {
 
             bw.write(result);
