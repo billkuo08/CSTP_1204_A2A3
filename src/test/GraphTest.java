@@ -8,7 +8,7 @@ import main.staff.*;
 public class GraphTest {
     
     @Test
-    public void test1() {
+    public void listTest() {
         AdjacencyListGraph graph = new AdjacencyListGraph();
 
         Vertex v1 = new Vertex("A");
@@ -30,8 +30,7 @@ public class GraphTest {
         graph.addEdge(v1, v5);
 
         System.out.println(graph.edgeExists(v1, v2));
-        System.out.println(graph.edgeExists(v1, v3));
-        
+        System.out.println(graph.edgeExists(v1, v3));        
         System.out.println(graph.getDownstreamNeighbors(v1));
         System.out.println(graph.getUpstreamNeighbors(v1));
         System.out.println(graph.getDownstreamNeighbors(v2));
@@ -43,7 +42,7 @@ public class GraphTest {
     }
 
     @Test
-    public void test2() {
+    public void matrixTest() {
         AdjacencyMatrixGraph graph = new AdjacencyMatrixGraph();
 
         Vertex v1 = new Vertex("A");
