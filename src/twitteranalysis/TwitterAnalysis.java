@@ -1,6 +1,5 @@
 package twitteranalysis;
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,136 +17,131 @@ import java.util.Scanner;
 import main.graph.*;
 import main.staff.*;
 
+    
+  
+    public class TwitterAnalysis {       
 
-public class TwitterAnalysis {
+        
+        private static String queryResult = "";
 
-    private static String queryResult = "";
+        public static void main(String[] args) throws IOException, InvalidAlgorithmParameterException {
 
-    public static void main(String[] args) throws IOException, InvalidAlgorithmParameterException {
+            AdjacencyListGraph twitterGraph = new AdjacencyListGraph();
 
-        AdjacencyListGraph twitterGraph = new AdjacencyListGraph();
-        // Set<String> outputSet = new HashSet<String>();
+            String dataBase = "datasets/twitter.txt";
+            String commandFile = "datasets/commandQuery.txt";
 
-        String dataBase = "datasets/twitter.txt";
-        String commandFile = "datasets/commandQuery.txt";
+            constructGraph(twitterGraph, dataBase);
 
-        constructGraph(twitterGraph, dataBase);
+            getQueries(twitterGraph, commandFile);
 
-        getQueries(twitterGraph, commandFile);
+            outputQueries(queryResult);
 
-        //outputSet.add(queryResult);
-
-        // String finalResult = String.join("", outputSet);
-
-        outputQueries(queryResult);
-
-    }
-
-   
-
-    // This method reads the file and construct a graph based on it
-    private static void constructGraph(Graph graph, String file1) throws FileNotFoundException {
-
-        File myFile = new File(file1);
-
-        // Use scanner to tokenize the data
-        try (Scanner data = new Scanner(myFile)) {
-
-            Queue<Vertex> myQue = new LinkedList<>();
-
-            while (data.hasNext()) {
-                String str = data.next();
-
-                // Assuming no error in the source file, we ignore every "->"
-                if (!str.equals("->")) {
-                    Vertex thisVertex = new Vertex(str);
-                    graph.addVertex(thisVertex);
-                    myQue.add(thisVertex);
-                }
-
-                // Since we ignored "->", for every two vertices, we have an edge
-                if (myQue.size() == 2) {
-                    Vertex a = myQue.remove();
-                    Vertex b = myQue.remove();
-
-                    graph.addEdge(a, b);
-                }
-
-            }
         }
 
-    }
+        // This method reads the commandquery and construct a graph based on it
+        private static void constructGraph(Graph graph, String file1) throws FileNotFoundException {
 
-    // reads the commandQuery file calls the appropriate method
-    private static void getQueries(Graph graph, String file2) throws InvalidAlgorithmParameterException{
+            File myFile = new File(file1);
 
-        StringBuilder sb = new StringBuilder(queryResult);
+            // Use scanner to tokenize the data
+            try (Scanner data = new Scanner(myFile)) {
 
-        try{
+                Queue<Vertex> myQue = new LinkedList<>();
 
-            BufferedReader brData = new BufferedReader(new FileReader(file2));
-            String line;
-            String[] commandArr;
-            LinkedHashSet<String> mySet = new LinkedHashSet<String>();
-            line = brData.readLine();
-           
-           
-            
-            while((line = brData.readLine()) != null){  
+                while (data.hasNext()) {
+                    String str = data.next();
 
-                mySet.add(line);
-                
-                
-                
-                if(line.contains("?")){  
-                   commandArr = line.split(" ");
-                                        
-                                           
-                    if(Objects.equals(commandArr[0], "commonInfluencers") && commandArr.length == 4){
-                        Vertex u1 = new Vertex(commandArr[1]);
-                        Vertex u2 = new Vertex(commandArr[2]);
+                    // Assuming no error in the source file, we ignore every "->"
+                    if (!str.equals("->")) {
+                        Vertex thisVertex = new Vertex(str);
+                        graph.addVertex(thisVertex);
+                        myQue.add(thisVertex);
+                    }
 
-                        sb.append("query: ").append(commandArr[0]).append(" ").append(u1).append(" ").append(u2).append("\n");
+                    // Since we ignored "->", for every two vertices, we have an edge
+                    if (myQue.size() == 2) {
+                        Vertex a = myQue.remove();
+                        Vertex b = myQue.remove();
 
-                        for(Vertex users: Algorithms.commonDownstreamVertices(graph, u1, u2)){
-                            sb.append(users).append("\n");
-                        }
+                        graph.addEdge(a, b);
+                    }
 
-                        } else if (Objects.equals(commandArr[0], "numRetweets") && commandArr.length == 4){
+                }
+            }
+
+        }
+
+        // reads the commandQuery file calls the according algorithm        
+        private static void getQueries(Graph graph, String file2) throws InvalidAlgorithmParameterException {
+
+            StringBuilder sb = new StringBuilder(queryResult);
+
+            try {
+                BufferedReader brData = new BufferedReader(new FileReader(file2));
+                String line;
+                String[] commandArr;
+                LinkedHashSet<String> mySet = new LinkedHashSet<String>();
+                line = brData.readLine();
+
+                while ((line = brData.readLine()) != null) {
+
+                    mySet.add(line);
+
+                    if (line.contains("?")) {
+                        commandArr = line.split(" ");
+
+                        if (Objects.equals(commandArr[0], "commonInfluencers") && commandArr.length == 4) {
                             Vertex u1 = new Vertex(commandArr[1]);
                             Vertex u2 = new Vertex(commandArr[2]);
 
-                            sb.append("query: ").append(commandArr[0]).append(" ").append(u1).append(" ").append(u2).append("\n");
+                            sb.append("query: ").append(commandArr[0]).append(" ").append(u1).append(" ").append(u2)
+                                    .append("\n");
+
+                            for (Vertex users : Algorithms.commonDownstreamVertices(graph, u1, u2)) {
+                                sb.append(users).append("\n");
+                            }
+
+                        } else if (Objects.equals(commandArr[0], "numRetweets") && commandArr.length == 4) {
+                            Vertex u1 = new Vertex(commandArr[1]);
+                            Vertex u2 = new Vertex(commandArr[2]);
+
+                            sb.append("query: ").append(commandArr[0]).append(" ").append(u1).append(" ").append(u2)
+                                    .append("\n");
 
                             sb.append(Algorithms.shortestDistance(graph, u1, u2)).append("\n");
 
-                        }                 
-                } 
+                        }
+                    }
+
+                }
+
+                queryResult = sb.toString();
+                brData.close();
+
+            } catch (Exception e) {
+                // Test that an exception should be thrown
+            }           
+                
             
-                 
+        }
+
+       
+        //Writes the query result into the output.txt file
+        private static void outputQueries(String result) {
+
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter("datasets/output.txt"))) {
+
+                bw.write(result);
+
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
             }
-        
-            queryResult = sb.toString();                          
-            brData.close();
 
-        } catch (Exception e) {
-            // Test that an exception should be thrown
-          }
-            
-    }
-    
+        }      
 
 
-  
-   
-}
-
-    
-
-
-          
      
 
-    
-
+    }
 
