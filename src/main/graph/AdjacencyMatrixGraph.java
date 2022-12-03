@@ -9,7 +9,6 @@ import main.staff.*;
 
 
 public class AdjacencyMatrixGraph implements Graph {
-  // todo: Jericho Implement this class
 
   private final List<List<Boolean>> connectionMatrix;
   private final List<Vertex> vertexList;
