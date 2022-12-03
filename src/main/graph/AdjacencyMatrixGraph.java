@@ -31,7 +31,7 @@ public class AdjacencyMatrixGraph implements Graph {
     }
     // * add the new column to the connection matrix
     connectionMatrix.add(column);
-    System.out.println(vertexList);
+   
 
   }
 
