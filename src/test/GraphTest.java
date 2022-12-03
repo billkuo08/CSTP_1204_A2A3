@@ -61,7 +61,7 @@ public class GraphTest {
     } catch (Exception e) {
       // Even if an exception was thrown, this is not a failure
     }
-    //Kept running into indext out of bounds exception, so I commented out the code below
+    //Kept running into IndextOutOfBoundsException so I commented out the code below
     //assertEquals(false, aGraph.edgeExists(a, c));
   }
 
