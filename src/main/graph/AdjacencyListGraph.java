@@ -13,25 +13,32 @@ public class AdjacencyListGraph implements Graph {
 	private final Map<Vertex, LinkedList<Vertex>> adjacencyList;
 
 	public AdjacencyListGraph() {
-		// initialize the adjacency list
+		// Initialize the adjacency list with LinkedHashMap, this list serves as an edge list
 		adjacencyList = new LinkedHashMap<Vertex, LinkedList<Vertex>>();
 	}
 
 	public void addVertex(Vertex v) {
-		// add the vertex (key) and the value (addList) to the adjacency list
 		LinkedList<Vertex> addList = new LinkedList<>();
+		//Check no duplicate vertex
 		if (!adjacencyList.containsKey(v)) {
-			adjacencyList.put(v, addList);
+		// add the key and the value (vertex) to the adjacencyList
+		adjacencyList.put(v, addList);
 		}
 	}
 
 	public void addEdge(Vertex v1, Vertex v2) {
-		// add the edge to the adjacency list
+		// Set the value(vertex) associated with a specific key to the addList
 		LinkedList<Vertex> addList = adjacencyList.get(v1);
+		// Check no duplicate edge
+		// If the vertex value does not already in the addList plus the second vertex's key does exists in the adjacencyList
 		if (!addList.contains(v1) && adjacencyList.containsKey(v2)) {
+			//add the second vertex to the addList
 			addList.add(v2);
 		}
+		//Form an edge in the adjacencyList
 		adjacencyList.put(v1, addList);
+		
+
 	}
 
 	public boolean edgeExists(Vertex v1, Vertex v2) {
