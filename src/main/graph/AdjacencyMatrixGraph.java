@@ -1,9 +1,14 @@
+package main.graph;
+
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import main.staff.*;
+
+
 
 public class AdjacencyMatrixGraph implements Graph {
-  // todo: Jericho Implement this class
 
   private final List<List<Boolean>> connectionMatrix;
   private final List<Vertex> vertexList;
@@ -26,7 +31,7 @@ public class AdjacencyMatrixGraph implements Graph {
     }
     // * add the new column to the connection matrix
     connectionMatrix.add(column);
-    System.out.println(vertexList);
+   
 
   }
 
@@ -88,5 +93,6 @@ public class AdjacencyMatrixGraph implements Graph {
     // * defensive copying to not give back the actual list of vertices
     return result;
   }
+  
 
 }
