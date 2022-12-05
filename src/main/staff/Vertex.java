@@ -1,7 +1,5 @@
 package main.staff;
 
-
-
 /**
  * This class models a vertex of the graph. DO NOT MODIFY THIS FILE.
  */
@@ -13,7 +11,7 @@ public class Vertex {
 	 * Create a new vertex with a given label
 	 * 
 	 * @param label
-	 *            with which to identify the vertex
+	 *              with which to identify the vertex
 	 */
 	public Vertex(String label) {
 		this.label = label;
@@ -32,7 +30,7 @@ public class Vertex {
 	 * Set the label for a vertex
 	 * 
 	 * @param label
-	 *            to set for the vertex
+	 *              to set for the vertex
 	 */
 	public void setLabel(String label) {
 		this.label = label;
